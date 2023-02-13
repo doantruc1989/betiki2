@@ -19,9 +19,7 @@ export class AuthService {
   ) {}
   async signUp(createUserDto: CreateUserDto) {
     // Check if user exists
-    const userExists = await this.usersService.findByEmail(
-      createUserDto.email,
-    );
+    const userExists = await this.usersService.findByEmail(createUserDto.email);
     if (userExists) {
       throw new BadRequestException('User already exists');
     }
@@ -38,17 +36,24 @@ export class AuthService {
   }
 
   async signIn(data: AuthDto) {
-    // Check if user exists
     const user = await this.usersService.findByEmail(data.email);
-    console.log("user ",user)
-    if (!user) throw new BadRequestException('User does not exist');
-    const passwordMatches = await bcrypt.compare(user.password, data.password);
-    if (!passwordMatches)
+    console.log('user ', user);
+    if (!user) {
+      throw new BadRequestException('User does not exist');
+    }
+    const passwordMatches = await bcrypt.compare(data.password, user.password);
+    if (!passwordMatches) {
       throw new BadRequestException('Password is incorrect');
+    }
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
-    console.log(tokens)
-    return tokens;
+    return {
+      tokens,
+      roles: user.role,
+      id: user.id,
+      username: user.name,
+      image: user.image,
+    };
   }
 
   async logout(userId: number) {
@@ -57,20 +62,21 @@ export class AuthService {
 
   async refreshTokens(userId: number, refreshToken: string) {
     const user = await this.usersService.findById(userId);
+
     if (!user || !user.refreshToken)
       throw new ForbiddenException('Access Denied');
     const refreshTokenMatches = await bcrypt.compare(
-      user.refreshToken,
       refreshToken,
+      user.refreshToken,
     );
     if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
-    return tokens;
+    return { tokens, id: user.id, username: user.name, image: user.image };
   }
 
-  hashData(data: string) {
-    return bcrypt.hash(data,10);
+  async hashData(data: string) {
+    return await bcrypt.hash(data, 10);
   }
 
   async updateRefreshToken(userId: number, refreshToken: string) {
@@ -89,7 +95,7 @@ export class AuthService {
         },
         {
           secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
-          expiresIn: '15m',
+          expiresIn: '120m',
         },
       ),
       this.jwtService.sign(

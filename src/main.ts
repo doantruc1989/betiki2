@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ExcludeNullInterceptor } from './utils/excludeNull.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,12 +19,21 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  app.enableCors({
-    allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
-    origin: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
-  });
+  // app.enableCors({
+  //   allowedHeaders: 'X-Requested-With, Authorization, X-HTTP-Method-Override, Content-Type, Accept, Observe',
+  //   origin: true,
+  //   methods: '*',
+  //   // credentials: true,
+  // });
+
+  const origin = '*';
+    const corsOptions = {
+        origin: origin,
+        methods: 'GET,HEAD,POST,PUT,PATCH,DELETE,OPTIONS',
+        // credentials: origin !== '*',
+        allowedHeaders: 'Content-Type, Authorization, X-Requested-With, Accept, X-XSRF-TOKEN, secret, recaptchavalue',
+    };
+    app.use(cors(corsOptions));
 
   await app.listen(3006);
 }

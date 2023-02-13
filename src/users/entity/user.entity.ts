@@ -13,16 +13,22 @@ export class User extends SharedProp {
   public id: number;
 
   @Column({ unique: true })
-  public email: string;
+  email: string;
 
   @Column()
-  public address: string;
+  public address1: string;
+
+  @Column()
+  public address2: string;
+
+  @Column()
+  public address3: string;
 
   @Column()
   public name: string;
 
   @Column()
-  @Exclude()
+  // @Exclude()
   public password: string;
 
   @Column({

@@ -29,6 +29,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @UseGuards(AccessTokenGuard)
   @Get(':id')
   findById(@Param('id') id: number) {
     return this.usersService.findById(id);
