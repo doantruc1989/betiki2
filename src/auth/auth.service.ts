@@ -94,7 +94,7 @@ export class AuthService {
           email,
         },
         {
-          secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
+          secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET') || "mycat",
           expiresIn: '120m',
         },
       ),
@@ -104,7 +104,7 @@ export class AuthService {
           email,
         },
         {
-          secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
+          secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET') || "mycat2",
           expiresIn: '7d',
         },
       ),
