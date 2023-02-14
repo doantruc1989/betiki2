@@ -17,7 +17,7 @@ let RefreshTokenStrategy = class RefreshTokenStrategy extends (0, passport_1.Pas
     constructor() {
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: process.env.JWT_REFRESH_TOKEN_SECRET,
+            secretOrKey: 'mycat2',
             passReqToCallback: true,
         });
     }

@@ -38,7 +38,6 @@ export class UsersService {
     id: number,
     updateUserDto: UpdateUserDto,
   ) {
-    console.log(id, updateUserDto)
     return this.usersRepository.update(id, updateUserDto);
   }
 

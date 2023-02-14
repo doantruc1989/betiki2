@@ -37,7 +37,6 @@ export class AuthService {
 
   async signIn(data: AuthDto) {
     const user = await this.usersService.findByEmail(data.email);
-    console.log('user ', user);
     if (!user) {
       throw new BadRequestException('User does not exist');
     }
@@ -94,8 +93,8 @@ export class AuthService {
           email,
         },
         {
-          secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET') || "mycat",
-          expiresIn: '120m',
+          secret: "mycat",
+          expiresIn: '1d',
         },
       ),
       this.jwtService.sign(
@@ -104,7 +103,7 @@ export class AuthService {
           email,
         },
         {
-          secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET') || "mycat2",
+          secret: "mycat2",
           expiresIn: '7d',
         },
       ),

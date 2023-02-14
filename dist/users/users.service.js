@@ -39,7 +39,6 @@ let UsersService = class UsersService {
         return user;
     }
     async update(id, updateUserDto) {
-        console.log(id, updateUserDto);
         return this.usersRepository.update(id, updateUserDto);
     }
     async remove(id) {

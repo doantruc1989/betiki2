@@ -34,7 +34,6 @@ let AuthService = class AuthService {
     }
     async signIn(data) {
         const user = await this.usersService.findByEmail(data.email);
-        console.log('user ', user);
         if (!user) {
             throw new common_1.BadRequestException('User does not exist');
         }
@@ -81,14 +80,14 @@ let AuthService = class AuthService {
                 sub: userId,
                 email,
             }, {
-                secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET') || "mycat",
-                expiresIn: '120m',
+                secret: "mycat",
+                expiresIn: '1d',
             }),
             this.jwtService.sign({
                 sub: userId,
                 email,
             }, {
-                secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET') || "mycat2",
+                secret: "mycat2",
                 expiresIn: '7d',
             }),
         ]);

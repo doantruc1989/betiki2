@@ -17,7 +17,7 @@ let AccessTokenStrategy = class AccessTokenStrategy extends (0, passport_1.Passp
     constructor() {
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: process.env.JWT_ACCESS_TOKEN_SECRET,
+            secretOrKey: "mycat",
         });
     }
     validate(payload) {
