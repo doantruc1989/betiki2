@@ -21,7 +21,7 @@ import { OrderItem } from 'src/cart/entity/OrderItem';
         host: "localhost",
         port: 3306,
         username: "root",
-        password: '',
+        password: 'password',
         database: "db3",
         entities: [User, OrderItem, Product, Category, Province,  Hero, Bosuutap, Thuonghieuchinhhang,Thuonghieusaletet],
         synchronize: true,

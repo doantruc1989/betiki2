@@ -29,6 +29,9 @@ async function bootstrap() {
     new ValidationPipe({
       forbidUnknownValues: false,
       skipMissingProperties: true,
+      skipUndefinedProperties:true,
+      skipNullProperties:true,
+
     }),
   );
 
