@@ -4,13 +4,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from 'src/users/entity/user.entity';
 import { Product } from 'src/product/entity/product.entity';
 import { Hero } from 'src/homepage/entity/hero';
-import { Giasochomnay } from 'src/homepage/entity/giasochomnay';
 import { Bosuutap } from 'src/homepage/entity/bosuutap';
 import { Thuonghieuchinhhang } from 'src/homepage/entity/thuonghieuchinhhang';
 import { Thuonghieusaletet } from 'src/homepage/entity/thuonghieusaletet';
-import { Dichvutienich } from 'src/homepage/entity/dichvutienich.entity';
 import { Province } from 'src/homepage/entity/Province.entity';
 import { Category } from 'src/product/entity/category';
+import { OrderItem } from 'src/cart/entity/OrderItem';
 
 @Module({
   imports: [
@@ -24,7 +23,7 @@ import { Category } from 'src/product/entity/category';
         username: "root",
         password: '',
         database: "db3",
-        entities: [User, Product, Category, Province,  Hero, Bosuutap, Giasochomnay,Thuonghieuchinhhang,Thuonghieusaletet, Dichvutienich],
+        entities: [User, OrderItem, Product, Category, Province,  Hero, Bosuutap, Thuonghieuchinhhang,Thuonghieusaletet],
         synchronize: true,
       }),
     }),

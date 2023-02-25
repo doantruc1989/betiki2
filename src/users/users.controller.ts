@@ -7,12 +7,14 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { SearchUsersDto } from './dto/searchUsers.dto';
+import { updateUserPwDto } from './dto/updateUserPw.dto';
 
 @Controller('users')
 @ApiTags('users')
@@ -25,23 +27,38 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query('page') page: number) {
+    return this.usersService.findAll(page);
   }
 
-  @UseGuards(AccessTokenGuard)
+  @Get('/search')
+  querySearch(@Query() searchUsersDto:SearchUsersDto) {
+    return this.usersService.querySearchUsers(searchUsersDto)
+  }
+
+  @Get('/total') 
+  getcountUser() {
+    return this.usersService.getCountUser()
+  }
+
+  // @UseGuards(AccessTokenGuard)
   @Get(':id')
   findById(@Param('id') id: number) {
     return this.usersService.findById(id);
   }
 
-  @UseGuards(AccessTokenGuard)
+  // @UseGuards(AccessTokenGuard)
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+    return this.usersService.updateuser(id, updateUserDto);
   }
 
-  @UseGuards(AccessTokenGuard)
+  @Patch('profile/:id')
+  updatePw(@Param('id') id: number, @Body() updateUserPwDto : updateUserPwDto) {
+    return this.usersService.updatePW(id, updateUserPwDto);
+  }
+
+  // @UseGuards(AccessTokenGuard)
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.usersService.remove(id);

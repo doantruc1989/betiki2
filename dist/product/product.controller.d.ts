@@ -9,9 +9,9 @@ export declare class ProductController {
     constructor(productService: ProductService);
     getAllProduct(page: number): Promise<import("./entity/product.entity").Product[]>;
     getProductwithCat(searchProductDto: SearchProductDto): Promise<import("./entity/product.entity").Product[]>;
-    createNewProduct(newProductDto: NewProductDto): Promise<NewProductDto & import("./entity/product.entity").Product>;
-    getProduct(id: any): Promise<import("./entity/product.entity").Product>;
-    getProductByCategory(name: string): Promise<import("./entity/product.entity").Product[]>;
+    createNewProduct(newProductDto: NewProductDto): Promise<import("typeorm").InsertResult>;
+    getProduct(id: any): Promise<import("./entity/product.entity").Product[]>;
+    getProductByCategory(id: number): Promise<import("./entity/category").Category[]>;
     listCategory(): Promise<import("./entity/category").Category[]>;
     editCategory(id: number, editCategory: EditCategoryDto): Promise<import("./entity/category").Category>;
     deleteCategory(id: number): Promise<void>;

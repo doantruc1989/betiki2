@@ -10,11 +10,11 @@ exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
-const users_module_1 = require("../users/users.module");
 const jwt_1 = require("@nestjs/jwt");
 const accessToken_strategy_1 = require("./strategies/accessToken.strategy");
 const refreshToken_strategy_1 = require("./strategies/refreshToken.strategy");
 const config_1 = require("@nestjs/config");
+const users_module_1 = require("../users/users.module");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([

@@ -1,5 +1,5 @@
-import { SharedProp } from 'src/users/entity/sharedProp.helper';
-export declare class Product extends SharedProp {
+import { Category } from './category';
+export declare class Product {
     id: number;
     productName: string;
     price: number;
@@ -8,5 +8,8 @@ export declare class Product extends SharedProp {
     image: string;
     category: string;
     brand: string;
+    path: string;
     content: string | null;
+    createdAt: Date;
+    categoryID: Category;
 }

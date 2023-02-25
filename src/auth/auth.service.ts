@@ -50,13 +50,15 @@ export class AuthService {
       tokens,
       roles: user.role,
       id: user.id,
-      username: user.name,
+      username: user.username,
       image: user.image,
+      address:user.address,
+      phone:user.phone,
     };
   }
 
   async logout(userId: number) {
-    this.usersService.update(userId, { refreshToken: null });
+    this.usersService.updateuser(userId, { refreshToken: null });
   }
 
   async refreshTokens(userId: number, refreshToken: string) {
@@ -71,7 +73,7 @@ export class AuthService {
     if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
-    return { tokens, id: user.id, username: user.name, image: user.image };
+    return { tokens, id: user.id, username: user.username, image: user.image };
   }
 
   async hashData(data: string) {
@@ -80,7 +82,7 @@ export class AuthService {
 
   async updateRefreshToken(userId: number, refreshToken: string) {
     const hashedRefreshToken = await this.hashData(refreshToken);
-    await this.usersService.update(userId, {
+    await this.usersService.updateuser(userId, {
       refreshToken: hashedRefreshToken,
     });
   }

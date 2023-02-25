@@ -13,13 +13,12 @@ const config_1 = require("@nestjs/config");
 const user_entity_1 = require("../users/entity/user.entity");
 const product_entity_1 = require("../product/entity/product.entity");
 const hero_1 = require("../homepage/entity/hero");
-const giasochomnay_1 = require("../homepage/entity/giasochomnay");
 const bosuutap_1 = require("../homepage/entity/bosuutap");
 const thuonghieuchinhhang_1 = require("../homepage/entity/thuonghieuchinhhang");
 const thuonghieusaletet_1 = require("../homepage/entity/thuonghieusaletet");
-const dichvutienich_entity_1 = require("../homepage/entity/dichvutienich.entity");
 const Province_entity_1 = require("../homepage/entity/Province.entity");
 const category_1 = require("../product/entity/category");
+const OrderItem_1 = require("../cart/entity/OrderItem");
 let DatabaseModule = class DatabaseModule {
 };
 DatabaseModule = __decorate([
@@ -35,7 +34,7 @@ DatabaseModule = __decorate([
                     username: "root",
                     password: '',
                     database: "db3",
-                    entities: [user_entity_1.User, product_entity_1.Product, category_1.Category, Province_entity_1.Province, hero_1.Hero, bosuutap_1.Bosuutap, giasochomnay_1.Giasochomnay, thuonghieuchinhhang_1.Thuonghieuchinhhang, thuonghieusaletet_1.Thuonghieusaletet, dichvutienich_entity_1.Dichvutienich],
+                    entities: [user_entity_1.User, OrderItem_1.OrderItem, product_entity_1.Product, category_1.Category, Province_entity_1.Province, hero_1.Hero, bosuutap_1.Bosuutap, thuonghieuchinhhang_1.Thuonghieuchinhhang, thuonghieusaletet_1.Thuonghieusaletet],
                     synchronize: true,
                 }),
             }),

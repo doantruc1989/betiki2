@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HomepageController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const editHero_dto_1 = require("./dto/editHero.dto");
 const homepage_service_1 = require("./homepage.service");
 let HomepageController = class HomepageController {
     constructor(homepageService) {
@@ -23,17 +24,32 @@ let HomepageController = class HomepageController {
     async getHero() {
         return this.homepageService.listHero();
     }
+    async getHeroById(id) {
+        return this.homepageService.getHerobyId(id);
+    }
+    async patchHero(id, editHeroDto) {
+        return this.homepageService.editHero(id, editHeroDto);
+    }
     async getThuonghieuchinhhang() {
         return this.homepageService.listThuonghieuchinhhang();
     }
-    async getGiasochomnay() {
-        return this.homepageService.listGiasochomnay();
+    async getChinhhangById(id) {
+        return this.homepageService.getChinhhangbyId(id);
+    }
+    async patchChinhHang(id, editHeroDto) {
+        return this.homepageService.editChinhhang(id, editHeroDto);
     }
     async getSaletet() {
         return this.homepageService.listSaletet();
     }
     async getBosuutap() {
         return this.homepageService.listBosuutap();
+    }
+    async getBosuutapById(id) {
+        return this.homepageService.getBosuutapbyId(id);
+    }
+    async patchBosuutap(id, editHeroDto) {
+        return this.homepageService.editBosuutap(id, editHeroDto);
     }
     async getProvinces() {
         return this.homepageService.listProvinces();
@@ -49,17 +65,41 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], HomepageController.prototype, "getHero", null);
 __decorate([
+    (0, common_1.Get)('hero/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], HomepageController.prototype, "getHeroById", null);
+__decorate([
+    (0, common_1.Patch)('hero/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, editHero_dto_1.default]),
+    __metadata("design:returntype", Promise)
+], HomepageController.prototype, "patchHero", null);
+__decorate([
     (0, common_1.Get)('chinhhang'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], HomepageController.prototype, "getThuonghieuchinhhang", null);
 __decorate([
-    (0, common_1.Get)('giasochomnay'),
+    (0, common_1.Get)('chinhhang/:id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], HomepageController.prototype, "getGiasochomnay", null);
+], HomepageController.prototype, "getChinhhangById", null);
+__decorate([
+    (0, common_1.Patch)('chinhhang/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, editHero_dto_1.default]),
+    __metadata("design:returntype", Promise)
+], HomepageController.prototype, "patchChinhHang", null);
 __decorate([
     (0, common_1.Get)('saletet'),
     __metadata("design:type", Function),
@@ -72,6 +112,21 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], HomepageController.prototype, "getBosuutap", null);
+__decorate([
+    (0, common_1.Get)('bosuutap/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], HomepageController.prototype, "getBosuutapById", null);
+__decorate([
+    (0, common_1.Patch)('bosuutap/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, editHero_dto_1.default]),
+    __metadata("design:returntype", Promise)
+], HomepageController.prototype, "patchBosuutap", null);
 __decorate([
     (0, common_1.Get)('provinces'),
     __metadata("design:type", Function),

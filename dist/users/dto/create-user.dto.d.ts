@@ -1,9 +1,11 @@
+import { Role } from "../entity/user.entity";
 export declare class CreateUserDto {
     email: string;
     username: string;
     password: string;
+    image: string;
+    role: Role[];
+    phone?: string;
     refreshToken?: string;
-    address1: string;
-    address2: string;
-    address3: string;
+    address?: string;
 }

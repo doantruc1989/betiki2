@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./entity/user.entity");
+const bcrypt = require("bcrypt");
 let UsersService = class UsersService {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
@@ -26,23 +27,55 @@ let UsersService = class UsersService {
         await this.usersRepository.save(newUser);
         return newUser;
     }
-    async findAll() {
-        return this.usersRepository.find();
+    async findAll(page = 1) {
+        return this.usersRepository.find({
+            skip: 5 * (page - 1),
+            take: 5,
+        });
+    }
+    async getCountUser() {
+        const countUser = this.usersRepository.count();
+        return countUser;
     }
     async findById(id) {
-        return this.usersRepository.findOneBy({ id });
+        return this.usersRepository.findOneBy({ id: id });
     }
     async findByEmail(email) {
-        const user = await this.usersRepository.createQueryBuilder("user")
-            .where({ email: email })
-            .getOne();
+        const user = await this.usersRepository.findOneBy({ email: email });
         return user;
     }
-    async update(id, updateUserDto) {
+    async updateuser(id, updateUserDto) {
         return this.usersRepository.update(id, updateUserDto);
+    }
+    async updatePW(id, updateUserPwDto) {
+        const user = await this.usersRepository.findOneBy({ id });
+        const hashPw = await bcrypt.hash(updateUserPwDto.password, 10);
+        user.password = hashPw;
+        return this.usersRepository.update(id, user);
     }
     async remove(id) {
         return this.usersRepository.delete(id);
+    }
+    async querySearchUsers(searchUsersDto) {
+        const users = await this.usersRepository.createQueryBuilder("User");
+        if (searchUsersDto.search === "adminasc") {
+            return users
+                .orderBy(`User.${searchUsersDto.sortBy}`, 'ASC')
+                .getMany();
+        }
+        if (searchUsersDto.search === "admindesc") {
+            return users
+                .orderBy(`User.${searchUsersDto.sortBy}`, 'DESC')
+                .getMany();
+        }
+        if (searchUsersDto.search === "searchall") {
+            return users
+                .where(`LOWER(email) LIKE '%${searchUsersDto.sortBy}%'`)
+                .orWhere(`LOWER(username) LIKE '%${searchUsersDto.sortBy}%'`)
+                .orWhere(`LOWER(role) LIKE '%${searchUsersDto.sortBy}%'`)
+                .getMany();
+        }
+        return users.getMany();
     }
 };
 UsersService = __decorate([

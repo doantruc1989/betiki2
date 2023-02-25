@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import EditHeroDto from './dto/editHero.dto';
 import { HomepageService } from './homepage.service';
 
 @Controller('homepage')
@@ -12,14 +13,29 @@ export class HomepageController {
         return this.homepageService.listHero()
     }
 
+    @Get('hero/:id')
+    async getHeroById(@Param('id') id: number) {
+        return this.homepageService.getHerobyId(id)
+    }
+
+    @Patch('hero/:id')
+    async patchHero(@Param('id') id: number, @Body()editHeroDto:EditHeroDto) {
+        return this.homepageService.editHero(id, editHeroDto)
+    }
+
     @Get('chinhhang')
     async getThuonghieuchinhhang() {
         return this.homepageService.listThuonghieuchinhhang()
     }
 
-    @Get('giasochomnay')
-    async getGiasochomnay() {
-        return this.homepageService.listGiasochomnay()
+    @Get('chinhhang/:id')
+    async getChinhhangById(@Param('id') id: number) {
+        return this.homepageService.getChinhhangbyId(id)
+    }b
+
+    @Patch('chinhhang/:id')
+    async patchChinhHang(@Param('id') id: number, @Body()editHeroDto:EditHeroDto) {
+        return this.homepageService.editChinhhang(id, editHeroDto)
     }
 
     @Get('saletet')
@@ -30,6 +46,16 @@ export class HomepageController {
     @Get('bosuutap')
     async getBosuutap() {
         return this.homepageService.listBosuutap()
+    }
+
+    @Get('bosuutap/:id')
+    async getBosuutapById(@Param('id') id:number) {
+        return this.homepageService.getBosuutapbyId(id)
+    }
+
+    @Patch('bosuutap/:id')
+    async patchBosuutap(@Param('id') id: number, @Body()editHeroDto:EditHeroDto) {
+        return this.homepageService.editBosuutap(id, editHeroDto)
     }
 
     @Get('provinces')

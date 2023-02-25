@@ -1,6 +1,7 @@
 export declare class EditProductDto {
     productName: string;
     price: number;
+    initialPrice: number;
     category: string;
     quantity: number;
     image: string;

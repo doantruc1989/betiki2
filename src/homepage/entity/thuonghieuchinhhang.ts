@@ -11,7 +11,7 @@ export class Thuonghieuchinhhang {
     @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
     id: number;
 
-    @Column('varchar', { name: 'category', length: 75, nullable: true  })
+    @Column('varchar', {  length: 75, nullable: true  })
     name: string;
 
     @Column('varchar')

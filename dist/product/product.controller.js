@@ -37,8 +37,8 @@ let ProductController = class ProductController {
     async getProduct(id) {
         return this.productService.getProductById(id);
     }
-    async getProductByCategory(name) {
-        return this.productService.getByCategory(name);
+    async getProductByCategory(id) {
+        return this.productService.getByCategory(id);
     }
     async listCategory() {
         return this.productService.listAllCategory();
@@ -74,6 +74,8 @@ __decorate([
 ], ProductController.prototype, "getAllProduct", null);
 __decorate([
     (0, common_1.Get)('product/all'),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [searchProduct_dto_1.default]),
@@ -94,10 +96,10 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getProduct", null);
 __decorate([
-    (0, common_1.Get)('category/:name'),
-    __param(0, (0, common_1.Param)('name')),
+    (0, common_1.Get)('category/:id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getProductByCategory", null);
 __decorate([

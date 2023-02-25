@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { SharedProp } from './sharedProp.helper';
+import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 
 export enum Role {
   User = 'user',
@@ -8,26 +9,26 @@ export enum Role {
 }
 
 @Entity()
-export class User extends SharedProp {
+export class User{
   @PrimaryGeneratedColumn()
   public id: number;
 
+  @IsNotEmpty()
+  @IsEmail()
   @Column({ unique: true })
   email: string;
 
   @Column()
-  public address1: string;
+  public address: string;
 
   @Column()
-  public address2: string;
+  public username: string;
 
   @Column()
-  public address3: string;
+  public phone:string;
 
   @Column()
-  public name: string;
-
-  @Column()
+  @Length(8,24)
   // @Exclude()
   public password: string;
 
@@ -50,4 +51,11 @@ export class User extends SharedProp {
   
   @Exclude()
   public refreshToken?: string;
+
+  @Column({
+		default: () => 'CURRENT_TIMESTAMP',
+		type: 'datetime',
+		name: 'createdAt',
+	  })
+	  createdAt: Date;
 }

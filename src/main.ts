@@ -8,8 +8,8 @@ import * as cors from 'cors';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalInterceptors(new ExcludeNullInterceptor());
+
+  // app.useGlobalInterceptors(new ExcludeNullInterceptor());
 
   const config = new DocumentBuilder()
     .setTitle('Cats example')
@@ -25,15 +25,22 @@ async function bootstrap() {
   //   methods: '*',
   //   // credentials: true,
   // });
+  app.useGlobalPipes(
+    new ValidationPipe({
+      forbidUnknownValues: false,
+      skipMissingProperties: true,
+    }),
+  );
 
   const origin = '*';
-    const corsOptions = {
-        origin: origin,
-        methods: 'GET,HEAD,POST,PUT,PATCH,DELETE,OPTIONS',
-        // credentials: origin !== '*',
-        allowedHeaders: 'Content-Type, Authorization, X-Requested-With, Accept, X-XSRF-TOKEN, secret, recaptchavalue',
-    };
-    app.use(cors(corsOptions));
+  const corsOptions = {
+    origin: origin,
+    methods: 'GET,HEAD,POST,PUT,PATCH,DELETE,OPTIONS',
+    // credentials: origin !== '*',
+    allowedHeaders:
+      'Content-Type, Authorization, X-Requested-With, Accept, X-XSRF-TOKEN, secret, recaptchavalue',
+  };
+  app.use(cors(corsOptions));
 
   await app.listen(3006);
 }

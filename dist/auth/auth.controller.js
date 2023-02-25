@@ -31,7 +31,6 @@ let AuthController = class AuthController {
         return this.authService.signIn(data);
     }
     logout(req) {
-        console.log("logout ", req);
         this.authService.logout(req.user['sub']);
     }
     refreshTokens(req) {

@@ -20,13 +20,11 @@ export class AuthController {
   @Post('signin')
   signin(@Body() data: AuthDto) {
     return this.authService.signIn(data);
-  
   }
 
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   logout(@Req() req: Request) {
-    console.log("logout ", req)
     this.authService.logout(req.user['sub']);
   }
 

@@ -3,6 +3,7 @@ import {
     Column,
     Entity,
     Index,
+    ManyToOne,
     // JoinColumn,
     // JoinTable,
     // ManyToMany,
@@ -10,6 +11,7 @@ import {
     // OneToMany,
     PrimaryGeneratedColumn
 } from 'typeorm';
+import { Category } from './category';
 
 // import { CartItem } from './CartItem';
 // import { OrderItem } from './OrderItem';
@@ -20,7 +22,7 @@ import {
 // import { Tag } from './Tag';
 
 @Entity('product')
-export class Product extends SharedProp {
+export class Product{
 
     @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
     id: number;
@@ -46,8 +48,21 @@ export class Product extends SharedProp {
     @Column('varchar')
     brand: string;
 
+    @Column('varchar')
+    path: string;
+
     @Column('text', { name: 'content', nullable: true })
     content: string | null;
+
+    @Column({
+		default: () => 'CURRENT_TIMESTAMP',
+		type: 'datetime',
+		name: 'createdAt',
+	  })
+	  createdAt: Date;
+
+    @ManyToOne(() => Category, (category) => category.productId)
+    categoryID: Category
 
     // @OneToMany( () => CartItem, ( cartItem ) => cartItem.product )
     // cartItems: CartItem[];

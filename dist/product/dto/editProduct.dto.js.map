@@ -1,1 +1,1 @@
-{"version":3,"file":"editProduct.dto.js","sourceRoot":"","sources":["../../../src/product/dto/editProduct.dto.ts"],"names":[],"mappings":";;;AACA,MAAa,cAAc;CAO1B;AAPD,wCAOC;AAED,kBAAe,cAAc,CAAC"}
+{"version":3,"file":"editProduct.dto.js","sourceRoot":"","sources":["../../../src/product/dto/editProduct.dto.ts"],"names":[],"mappings":";;;AACA,MAAa,cAAc;CAQ1B;AARD,wCAQC;AAED,kBAAe,cAAc,CAAC"}

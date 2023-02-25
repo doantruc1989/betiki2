@@ -24,19 +24,45 @@ let ProductService = class ProductService {
         this.categoryRepository = categoryRepository;
     }
     async createProduct(newProductDto) {
-        console.log(newProductDto);
-        return await this.productRepository.save(newProductDto);
+        const product = await this.productRepository
+            .createQueryBuilder("product")
+            .leftJoinAndSelect("product.categoryID", "category")
+            .insert()
+            .into(product_entity_1.Product)
+            .values(newProductDto)
+            .execute();
+        return product;
     }
     async listAllCategory() {
         return await this.categoryRepository.find();
     }
     async getProductbyCat(searchProductDto) {
         const products = await this.productRepository.createQueryBuilder('product');
+        if (searchProductDto.search === "searchall") {
+            return products
+                .where(`LOWER(productName) LIKE '%${searchProductDto.sortBy}%'`)
+                .orWhere(`LOWER(id) LIKE '%${searchProductDto.sortBy}%'`)
+                .orWhere(`LOWER(price) LIKE '%${searchProductDto.sortBy}%'`)
+                .orWhere(`LOWER(content) LIKE '%${searchProductDto.sortBy}%'`)
+                .orWhere(`LOWER(category) LIKE '%${searchProductDto.sortBy}%'`)
+                .take(10)
+                .getMany();
+        }
+        if (searchProductDto.search === "adminasc") {
+            return products
+                .orderBy(`product.${searchProductDto.sortBy}`, 'ASC')
+                .getMany();
+        }
+        if (searchProductDto.search === "admindesc") {
+            return products
+                .orderBy(`product.${searchProductDto.sortBy}`, 'DESC')
+                .getMany();
+        }
         if (searchProductDto.search === "random") {
             return products
                 .select()
                 .orderBy('RAND()')
-                .take(6)
+                .take(18)
                 .getMany();
         }
         if (searchProductDto.search === "danhchoban") {
@@ -174,6 +200,7 @@ let ProductService = class ProductService {
                 .andWhere(`LOWER(productName) LIKE '%${searchProductDto.sortBy}%'`)
                 .getMany();
         }
+        return products.getMany();
     }
     async adminEditCategory(id, editCategory) {
         const category = await this.categoryRepository.findOneBy({ id });
@@ -200,11 +227,13 @@ let ProductService = class ProductService {
     async adminNewCategory(newCategory) {
         return await this.categoryRepository.save(newCategory);
     }
-    async listProduct(page = 1) {
-        const products = await this.productRepository.find({
-            skip: 18 * (page - 1),
-            take: 18,
-        });
+    async listProduct(page) {
+        const products = await this.productRepository
+            .createQueryBuilder("product")
+            .leftJoinAndSelect("product.categoryID", "category")
+            .skip(16 * (page - 1))
+            .take(16)
+            .getMany();
         return products;
     }
     async list6Product() {
@@ -212,22 +241,26 @@ let ProductService = class ProductService {
         return products;
     }
     async getProductById(id) {
-        const product = await this.productRepository.findOneBy({ id: id });
+        const product = await this.productRepository
+            .createQueryBuilder("product")
+            .leftJoinAndSelect("product.categoryID", "category")
+            .where({ id: id })
+            .getMany();
         return product;
     }
-    async getByCategory(name) {
-        const products = await this.productRepository.find({
-            where: { category: name },
+    async getByCategory(id) {
+        const products = await this.categoryRepository.find({
+            where: { id: id },
         });
         return products;
     }
     async editProduct(id, editProductDto) {
         const product = await this.productRepository.findOneBy({ id });
-        console.log(product);
         product.category = editProductDto.category;
         product.content = editProductDto.content;
         product.image = editProductDto.image;
         product.price = editProductDto.price;
+        product.initialPrice = editProductDto.initialPrice;
         product.productName = editProductDto.productName;
         product.quantity = editProductDto.quantity;
         const updatedProduct = this.productRepository.save(product);
@@ -248,7 +281,7 @@ let ProductService = class ProductService {
     }
     async adminCheckQty() {
         return await this.productRepository.find({
-            where: { quantity: (0, typeorm_2.LessThanOrEqual)(10) },
+            where: { quantity: (0, typeorm_2.LessThanOrEqual)(40) },
         });
     }
 };

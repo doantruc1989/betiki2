@@ -1,5 +1,6 @@
 import {
   Body,
+  ConsoleLogger,
   Controller,
   Delete,
   Get,
@@ -7,6 +8,8 @@ import {
   Post,
   Query,
   Req,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import EditCategoryDto from './dto/editCategory.tdo';
@@ -27,6 +30,8 @@ export class ProductController {
   }
 
   @Get('product/all')
+  @UsePipes(ValidationPipe)
+  @UsePipes(new ValidationPipe({ transform: true }))
   async getProductwithCat(@Query() searchProductDto: SearchProductDto) {
     return this.productService.getProductbyCat(searchProductDto);
   }
@@ -41,9 +46,9 @@ export class ProductController {
     return this.productService.getProductById(id);
   }
 
-  @Get('category/:name')
-  async getProductByCategory(@Param('name') name: string) {
-    return this.productService.getByCategory(name);
+  @Get('category/:id')
+  async getProductByCategory(@Param('id') id: number) {
+    return this.productService.getByCategory(id);
   }
 
   @Get('listcategory')

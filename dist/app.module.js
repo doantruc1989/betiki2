@@ -15,6 +15,7 @@ const users_module_1 = require("./users/users.module");
 const product_module_1 = require("./product/product.module");
 const homepage_module_1 = require("./homepage/homepage.module");
 const auth_module_1 = require("./auth/auth.module");
+const cart_module_1 = require("./cart/cart.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -36,7 +37,8 @@ AppModule = __decorate([
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
             product_module_1.ProductModule,
-            homepage_module_1.HomepageModule
+            homepage_module_1.HomepageModule,
+            cart_module_1.CartModule
         ],
         controllers: [],
         providers: [],

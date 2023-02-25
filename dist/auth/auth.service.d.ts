@@ -21,6 +21,8 @@ export declare class AuthService {
         id: number;
         username: string;
         image: string;
+        address: string;
+        phone: string;
     }>;
     logout(userId: number): Promise<void>;
     refreshTokens(userId: number, refreshToken: string): Promise<{

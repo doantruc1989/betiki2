@@ -18,6 +18,8 @@ export declare class AuthController {
         id: number;
         username: string;
         image: string;
+        address: string;
+        phone: string;
     }>;
     logout(req: Request): void;
     refreshTokens(req: Request): Promise<{

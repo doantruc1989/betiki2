@@ -18,7 +18,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Hero.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', { name: 'category', length: 75, nullable: true }),
+    (0, typeorm_1.Column)('varchar', { length: 75, nullable: true }),
     __metadata("design:type", String)
 ], Hero.prototype, "name", void 0);
 __decorate([

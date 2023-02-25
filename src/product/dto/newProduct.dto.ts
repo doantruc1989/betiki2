@@ -2,12 +2,14 @@
 
 export class NewProductDto {
     id: number;
-    productname: string;
+    productName: string;
+    initialPrice: number;
     price: number;
     quantity: number;
     content: string;
     image: string;
     category: string;
+    categoryID: any;
 }
 
 export default NewProductDto;

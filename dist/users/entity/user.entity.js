@@ -12,40 +12,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = exports.Role = void 0;
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
-const sharedProp_helper_1 = require("./sharedProp.helper");
+const class_validator_1 = require("class-validator");
 var Role;
 (function (Role) {
     Role["User"] = "user";
     Role["Admin"] = "admin";
 })(Role = exports.Role || (exports.Role = {}));
-let User = class User extends sharedProp_helper_1.SharedProp {
+let User = class User {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], User.prototype, "id", void 0);
 __decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEmail)(),
     (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "address1", void 0);
+], User.prototype, "address", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "address2", void 0);
+], User.prototype, "username", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "address3", void 0);
+], User.prototype, "phone", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.Length)(8, 24),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
@@ -69,6 +68,14 @@ __decorate([
     (0, class_transformer_1.Exclude)(),
     __metadata("design:type", String)
 ], User.prototype, "refreshToken", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        default: () => 'CURRENT_TIMESTAMP',
+        type: 'datetime',
+        name: 'createdAt',
+    }),
+    __metadata("design:type", Date)
+], User.prototype, "createdAt", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);
