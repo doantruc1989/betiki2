@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { SharedProp } from './sharedProp.helper';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
+import { Review } from 'src/product/entity/review.entity';
 
 export enum Role {
   User = 'user',
@@ -9,7 +10,7 @@ export enum Role {
 }
 
 @Entity()
-export class User{
+export class User {
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -18,18 +19,17 @@ export class User{
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ default: ' ' })
   public address: string;
 
-  @Column()
+  @Column({ default: ' ' })
   public username: string;
 
-  @Column()
-  public phone:string;
+  @Column({ default: ' ' })
+  public phone: string;
 
   @Column()
-  @Length(8,24)
-  // @Exclude()
+  @Length(8, 24)
   public password: string;
 
   @Column({
@@ -48,14 +48,16 @@ export class User{
   @Column({
     nullable: true,
   })
-  
   @Exclude()
   public refreshToken?: string;
 
   @Column({
-		default: () => 'CURRENT_TIMESTAMP',
-		type: 'datetime',
-		name: 'createdAt',
-	  })
-	  createdAt: Date;
+    default: () => 'CURRENT_TIMESTAMP',
+    type: 'datetime',
+    name: 'createdAt',
+  })
+  createdAt: Date;
+
+  @OneToOne(() => Review, (review) => review.user)
+  review: Review
 }

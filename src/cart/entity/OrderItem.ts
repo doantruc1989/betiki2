@@ -19,10 +19,10 @@ export class OrderItem {
   @Column()
   phone: string;
 
-  @Column({default: () => false })
+  @Column({default: 'cod'})
   payment: string;
 
-  @Column()
+  @Column({default: false })
   isPaid: boolean;
 
   @Column()

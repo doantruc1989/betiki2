@@ -19,6 +19,9 @@ const thuonghieusaletet_1 = require("../homepage/entity/thuonghieusaletet");
 const Province_entity_1 = require("../homepage/entity/Province.entity");
 const category_1 = require("../product/entity/category");
 const OrderItem_1 = require("../cart/entity/OrderItem");
+const discount_entity_1 = require("../product/entity/discount.entity");
+const review_entity_1 = require("../product/entity/review.entity");
+const productVariant_entity_1 = require("../product/entity/productVariant.entity");
 let DatabaseModule = class DatabaseModule {
 };
 DatabaseModule = __decorate([
@@ -34,7 +37,7 @@ DatabaseModule = __decorate([
                     username: "root",
                     password: '',
                     database: "db3",
-                    entities: [user_entity_1.User, OrderItem_1.OrderItem, product_entity_1.Product, category_1.Category, Province_entity_1.Province, hero_1.Hero, bosuutap_1.Bosuutap, thuonghieuchinhhang_1.Thuonghieuchinhhang, thuonghieusaletet_1.Thuonghieusaletet],
+                    entities: [user_entity_1.User, OrderItem_1.OrderItem, review_entity_1.Review, discount_entity_1.Discount, product_entity_1.Product, productVariant_entity_1.ProductVariant, category_1.Category, Province_entity_1.Province, hero_1.Hero, bosuutap_1.Bosuutap, thuonghieuchinhhang_1.Thuonghieuchinhhang, thuonghieusaletet_1.Thuonghieusaletet],
                     synchronize: true,
                 }),
             }),

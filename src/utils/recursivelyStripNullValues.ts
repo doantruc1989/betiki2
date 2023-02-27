@@ -3,7 +3,7 @@ function recursivelyStripNullValues(value: unknown): unknown {
     return value.map(recursivelyStripNullValues);
   }
   if (value !== null
-    //  && typeof value === 'object'
+     && typeof value === 'object'
      ) {
     return Object.fromEntries(
       Object.entries(value).map(([key, value]) => [key, recursivelyStripNullValues(value)])

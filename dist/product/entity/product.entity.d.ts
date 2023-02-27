@@ -1,4 +1,7 @@
 import { Category } from './category';
+import { Discount } from './discount.entity';
+import { ProductVariant } from './productVariant.entity';
+import { Review } from './review.entity';
 export declare class Product {
     id: number;
     productName: string;
@@ -12,4 +15,7 @@ export declare class Product {
     content: string | null;
     createdAt: Date;
     categoryID: Category;
+    discount: Discount;
+    review: Review;
+    productVariant: ProductVariant[];
 }

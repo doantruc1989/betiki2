@@ -74,8 +74,6 @@ __decorate([
 ], ProductController.prototype, "getAllProduct", null);
 __decorate([
     (0, common_1.Get)('product/all'),
-    (0, common_1.UsePipes)(common_1.ValidationPipe),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [searchProduct_dto_1.default]),

@@ -10,6 +10,9 @@ import { Thuonghieusaletet } from 'src/homepage/entity/thuonghieusaletet';
 import { Province } from 'src/homepage/entity/Province.entity';
 import { Category } from 'src/product/entity/category';
 import { OrderItem } from 'src/cart/entity/OrderItem';
+import { Discount } from 'src/product/entity/discount.entity';
+import { Review } from 'src/product/entity/review.entity';
+import { ProductVariant } from 'src/product/entity/productVariant.entity';
 
 @Module({
   imports: [
@@ -21,9 +24,9 @@ import { OrderItem } from 'src/cart/entity/OrderItem';
         host: "localhost",
         port: 3306,
         username: "root",
-        password: 'password',
+        password: '',
         database: "db3",
-        entities: [User, OrderItem, Product, Category, Province,  Hero, Bosuutap, Thuonghieuchinhhang,Thuonghieusaletet],
+        entities: [User, OrderItem, Review, Discount, Product, ProductVariant, Category, Province,  Hero, Bosuutap, Thuonghieuchinhhang,Thuonghieusaletet],
         synchronize: true,
       }),
     }),

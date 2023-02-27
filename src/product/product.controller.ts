@@ -30,8 +30,6 @@ export class ProductController {
   }
 
   @Get('product/all')
-  @UsePipes(ValidationPipe)
-  @UsePipes(new ValidationPipe({ transform: true }))
   async getProductwithCat(@Query() searchProductDto: SearchProductDto) {
     return this.productService.getProductbyCat(searchProductDto);
   }

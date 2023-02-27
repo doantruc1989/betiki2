@@ -1,15 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { ExcludeNullInterceptor } from './utils/excludeNull.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-
-  // app.useGlobalInterceptors(new ExcludeNullInterceptor());
 
   const config = new DocumentBuilder()
     .setTitle('Cats example')
@@ -29,9 +25,6 @@ async function bootstrap() {
     new ValidationPipe({
       forbidUnknownValues: false,
       skipMissingProperties: true,
-      skipUndefinedProperties:true,
-      skipNullProperties:true,
-
     }),
   );
 

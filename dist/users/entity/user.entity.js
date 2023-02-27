@@ -13,6 +13,7 @@ exports.User = exports.Role = void 0;
 const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
+const review_entity_1 = require("../../product/entity/review.entity");
 var Role;
 (function (Role) {
     Role["User"] = "user";
@@ -31,15 +32,15 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: ' ' }),
     __metadata("design:type", String)
 ], User.prototype, "address", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: ' ' }),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: ' ' }),
     __metadata("design:type", String)
 ], User.prototype, "phone", void 0);
 __decorate([
@@ -76,6 +77,10 @@ __decorate([
     }),
     __metadata("design:type", Date)
 ], User.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => review_entity_1.Review, (review) => review.user),
+    __metadata("design:type", review_entity_1.Review)
+], User.prototype, "review", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

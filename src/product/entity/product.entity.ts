@@ -3,7 +3,10 @@ import {
     Column,
     Entity,
     Index,
+    JoinColumn,
     ManyToOne,
+    OneToMany,
+    OneToOne,
     // JoinColumn,
     // JoinTable,
     // ManyToMany,
@@ -12,6 +15,9 @@ import {
     PrimaryGeneratedColumn
 } from 'typeorm';
 import { Category } from './category';
+import { Discount } from './discount.entity';
+import { ProductVariant } from './productVariant.entity';
+import { Review } from './review.entity';
 
 // import { CartItem } from './CartItem';
 // import { OrderItem } from './OrderItem';
@@ -30,13 +36,13 @@ export class Product{
     @Column('varchar', { name: 'productName'})
     productName: string;
 
-    @Column('float', { name: 'price', precision: 12, default: () => "'0'" })
+    @Column('float', { name: 'price', precision: 12, default: 0})
     price: number;
 
-    @Column('float', { name: 'initialPrice', precision: 12, default: () => "'0'" })
+    @Column('float', { name: 'initialPrice', precision: 12, default: 0 })
     initialPrice: number;
 
-    @Column('smallint', { name: 'quantity', default: () => "'100'" })
+    @Column('smallint', { name: 'quantity', default: 0})
     quantity: number;
 
     @Column('varchar')
@@ -63,6 +69,16 @@ export class Product{
 
     @ManyToOne(() => Category, (category) => category.productId)
     categoryID: Category
+
+    @ManyToOne(() => Discount, (discount) => discount.product)
+    discount: Discount
+
+    @OneToOne(() => Review, (review) => review.product)
+    @JoinColumn()
+    review: Review
+
+    @OneToMany( () => ProductVariant, ( productVariant ) => productVariant.product )
+    productVariant: ProductVariant[];
 
     // @OneToMany( () => CartItem, ( cartItem ) => cartItem.product )
     // cartItems: CartItem[];

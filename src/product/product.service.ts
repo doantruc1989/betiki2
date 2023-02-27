@@ -270,8 +270,8 @@ return products.getMany()
     const products = await this.productRepository
     .createQueryBuilder("product")
     .leftJoinAndSelect("product.categoryID", "category")
-    .skip(16*(page -1))
-    .take(16)
+    .skip(18*(page -1))
+    .take(18)
     .getMany()
   
     return products;
